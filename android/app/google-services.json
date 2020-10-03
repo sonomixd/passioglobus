@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "77483117734",
+    "firebase_url": "https://passioglobus.firebaseio.com",
+    "project_id": "passioglobus",
+    "storage_bucket": "passioglobus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77483117734:android:9e2cee6158315981987867",
+        "android_client_info": {
+          "package_name": "com.sonomixd.passioglobus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77483117734-sc35ml9f4fq6qv7brcjom7quf24ll73n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sonomixd.passioglobus",
+            "certificate_hash": "d5582ca60b3fa5a052dbd8f6f135a0b51def44da"
+          }
+        },
+        {
+          "client_id": "77483117734-256f1mm688vl3if53khi2lqdof31t1d1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdq1C3pHvw7ddXrrzN4_vXURx5xNEukFM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77483117734-256f1mm688vl3if53khi2lqdof31t1d1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
