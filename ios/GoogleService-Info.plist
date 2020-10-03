@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>77483117734-bvl9j1v5j3b1ifdb0stpebedbpqnb8rf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.77483117734-bvl9j1v5j3b1ifdb0stpebedbpqnb8rf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>77483117734-sc35ml9f4fq6qv7brcjom7quf24ll73n.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBW2xWoxJjWV1sH6XJCNnW4FIAgOnVUHoo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>77483117734</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sonomixd.passioglobus</string>
+	<key>PROJECT_ID</key>
+	<string>passioglobus</string>
+	<key>STORAGE_BUCKET</key>
+	<string>passioglobus.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:77483117734:ios:a36e0eb5e26ed238987867</string>
+	<key>DATABASE_URL</key>
+	<string>https://passioglobus.firebaseio.com</string>
+</dict>
+</plist>
