@@ -17,14 +17,16 @@ class _SlideshowState extends State<StoriesSlideshow> {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   Stream slides;
 
+  int currentPage = 0;
+
   String activeTag = 'topgames';
 
-  int currentPage = 0;
+  List<Map<String, dynamic>> fullList = new List<Map<String, dynamic>>();
 
   @override
   void initState() {
     super.initState();
-    _queryDb();
+    getData();
 
     ctrl.addListener(() {
       int next = ctrl.page.round();
@@ -37,91 +39,51 @@ class _SlideshowState extends State<StoriesSlideshow> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: slides,
-      initialData: [],
-      builder: (context, AsyncSnapshot snap) {
-        //
-
-        List slideList = snap.data.toList();
-        Map<String, dynamic> map = slideList[0];
-
-        return PageView.builder(
-          controller: ctrl,
-          itemCount: slideList.length + 1,
-          itemBuilder: (context, int currentIdx) {
-            if (currentIdx == 0) {
-              return _buildTagPage();
-            } else if (slideList.length >= currentIdx) {
-              bool active = currentIdx == currentPage;
-              //return _buildStoryPage(slideList[currentIdx - 1], active);
-              if (active) {
-                return Container(
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.4),
-                        spreadRadius: 1,
-                        blurRadius: 10,
-                        offset: Offset(-20, 10),
-                      ),
-                    ]),
-                    margin: EdgeInsets.only(top: 40, bottom: 100, right: 40),
-                    child: Stack(
-                      children: <Widget>[
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: BlurHash(
-                            imageFit: BoxFit.cover,
-                            hash: "TICSbN9Maf~QNIj?-lkAkAxYjbod",
-                            image: "slideList[currentIdx - 1]",
-                          ),
-                          // child: FadeInImage.assetNetwork(
-                          //   height: double.infinity,
-                          //   fit: BoxFit.cover,
-                          //   placeholder: 'assets/images/loading-leaf.png',
-                          //   image: data['img'],
-                          // ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
-                                begin: Alignment.bottomRight,
-                                colors: [
-                                  Colors.green.withOpacity(.8),
-                                  Colors.white.withOpacity(.0),
-                                ]),
-                          ),
-                        ),
-                      ],
-                    ));
-              }
-            } else
-              return Container();
-          },
-        );
-      },
-    );
-  }
-
-  void _queryDb({String tag = 'topgames'}) {
-    Query query = db.collection('leagues').where('tags', arrayContains: tag);
-
-    slides =
-        query.snapshots().map((list) => list.documents.map((doc) => doc.data));
-
-    setState(() {
-      activeTag = tag;
+  Future<dynamic> getData({String tag = 'fustane'}) async {
+    FirebaseFirestore.instance
+        .collection("leagues")
+        .where('tags', arrayContains: tag)
+        .get()
+        .then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((element) {
+        setState(() {
+          Map<String, dynamic> map = element.data.call();
+          fullList = new List<Map<String, dynamic>>();
+          fullList.add(map);
+          
+        });
+      });
     });
   }
 
-  _buildStoryPage(Map<String, dynamic> data, bool active) {
-    final double blur = active ? 30 : 0;
-    final double offset = active ? 20 : 0;
-    final double top = active ? 100 : 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: PageView.builder(
+            controller: ctrl,
+            itemCount: fullList.length + 1,
+            itemBuilder: (context, int currentIdx) {
+              if (currentIdx == 0) {
+                return _buildTagPage();
+              } else if (fullList.length >= currentIdx) {
+                return _buildStoryPage(fullList[currentIdx - 1]);
+              } else
+                return Container();
 
+            }),
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.home,
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.green,
+          onPressed: () => ctrl.animateToPage(0,
+              duration: Duration(milliseconds: 200), curve: Curves.bounceOut),
+        ));
+  }
+
+  _buildStoryPage(Map<String, dynamic> data) {
     return Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
@@ -141,12 +103,6 @@ class _SlideshowState extends State<StoriesSlideshow> {
                 hash: "TICSbN9Maf~QNIj?-lkAkAxYjbod",
                 image: data['image'],
               ),
-              // child: FadeInImage.assetNetwork(
-              //   height: double.infinity,
-              //   fit: BoxFit.cover,
-              //   placeholder: 'assets/images/loading-leaf.png',
-              //   image: data['img'],
-              // ),
             ),
             Container(
               decoration: BoxDecoration(
@@ -172,28 +128,25 @@ class _SlideshowState extends State<StoriesSlideshow> {
         ),
         Text('FILTER', style: TextStyle(color: Colors.black26)),
         _buildButton('topgames'),
-        _buildButton('fustane'),
-        _buildButton('funde'),
-        _buildButton('t-shirt'),
-        _buildButton('pulover'),
-        _buildButton('kemisha'),
-        _buildButton('xhaketa'),
-        _buildButton('pallto'),
-        _buildButton('xhinse'),
-        _buildButton('shorts'),
-        _buildButton('pantallona'),
-        _buildButton('shoes'),
-        _buildButton('canta'),
-        _buildButton('aksesore'),
+        _buildButton('championsleague'),
+        _buildButton('europaleague'),
+        _buildButton('premierleague'),
+        _buildButton('laliga'),
+        _buildButton('bundesliga'),
+        _buildButton('seriea'),
+        _buildButton('ligue1'),
       ],
     ));
   }
 
   _buildButton(tag) {
-    Color color = tag == activeTag ? Colors.green : Colors.white;
+    Color color = tag == activeTag ? Colors.green : Colors.red;
     return FlatButton(
         color: color,
         child: Text('#$tag'),
-        onPressed: () => _queryDb(tag: tag));
+        onPressed: () {
+          activeTag = tag;
+          getData(tag: tag);
+        });
   }
 }
