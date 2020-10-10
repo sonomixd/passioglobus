@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:passioglobus/screens/home.dart';
+import 'package:passioglobus/screens/story_detail.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 
@@ -84,7 +85,13 @@ class _SlideshowState extends State<StoriesSlideshow> {
   }
 
   _buildStoryPage(Map<String, dynamic> data) {
-    return Container(
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => StoryDetailsScreen(data),
+        ),
+      ),
+      child:Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.4),
@@ -114,7 +121,7 @@ class _SlideshowState extends State<StoriesSlideshow> {
               ),
             ),
           ],
-        ));
+        )));
   }
 
   _buildTagPage() {
