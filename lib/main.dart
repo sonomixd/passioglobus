@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:passioglobus/screens/login.dart';
+import 'package:passioglobus/screens/stories_slideshow.dart';
 import 'package:passioglobus/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +25,9 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: LoginScreen()),
+          home: Scaffold(
+            body: StoriesSlideshow())
+      )
     );
   }
 }
